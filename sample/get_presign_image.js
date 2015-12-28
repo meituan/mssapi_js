@@ -11,7 +11,7 @@ var s3 = new MSS.S3({
 var params = {
   Bucket: KEY.bucket_name,
   Key: KEY.object_name,
-  ImageActions: "100w",
+  ImageActions: "100w_2e",
   Expires: 600
 };
 

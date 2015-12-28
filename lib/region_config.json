@@ -19,7 +19,7 @@
         "services": ["s3"],
         "config": {
           "endpoint": "http://mtmss.com",
-          "imageservice": "http://image.mtmss.com"
+          "imageservice": "http://image.mtmssdn.com"
         }
       },
       {
