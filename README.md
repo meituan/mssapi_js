@@ -518,6 +518,7 @@ s3.getImage(params).createReadStream().pipe(file);
 ```
 
 ##### 在图片上打文字水印:
+##### 详细的图片处理参数请参考MOS文档
 
 ```javascript
 
