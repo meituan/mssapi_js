@@ -473,6 +473,7 @@ console.log("The URL to HEAD is [%s]", url);
 ```
 
 #### 图片处理服务
+###### 详细的图片处理参数请参考MOS文档
 
 ##### 将图片按比例缩小到原来的50%:
 
@@ -518,7 +519,6 @@ s3.getImage(params).createReadStream().pipe(file);
 ```
 
 ##### 在图片上打文字水印:
-##### 详细的图片处理参数请参考MOS文档
 
 ```javascript
 
