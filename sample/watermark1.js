@@ -7,6 +7,7 @@ var s3 = new MSS.S3({
   secretAccessKey: KEY.secret_key
 });
 
+// 将同一个bucket内的lena.jpg缩小50%后作为水印图片
 watermark_object = new Buffer('lena.jpg@50p')
 var params = {
   Bucket: KEY.bucket_name,

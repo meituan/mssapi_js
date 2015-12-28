@@ -568,6 +568,7 @@ console.log("The URL to HEAD is [%s]", url);
 console.log();
 
 // 获取打图片水印的图片预签名url用于GET或HEAD
+// 将同一个bucket内的lena.jpg缩小50%后作为水印图片
 watermark_object = new Buffer('lena.jpg@50p')
 params['ImageActions'] = 'watermark=1&object=' + watermark_object.toString('base64')
 var url = s3.getSignedUrl('getImage', params);
