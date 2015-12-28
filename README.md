@@ -471,3 +471,116 @@ console.log("The URL to HEAD is [%s]", url);
 
 // 代码较长请参考sample/multipart_upload.js
 ```
+
+#### 图片处理服务
+
+##### 将图片按比例缩小到原来的50%:
+
+```javascript
+
+// 参考sample/image1.js
+
+var s3 = new MSS.S3({
+  accessKeyId: '你的accessKey',
+  secretAccessKey: '你的secretKey'
+});
+
+var params = {
+  Bucket: 'myBucket',
+  Key: 'myObject',
+  ImageActions: '50p'
+};
+
+var file = require('fs').createWriteStream('./download/iamge1');
+s3.getImage(params).createReadStream().pipe(file);
+```
+
+##### 在图片上打图片水印:
+
+```javascript
+
+// 参考sample/watermark1.js
+
+var s3 = new MSS.S3({
+  accessKeyId: '你的accessKey',
+  secretAccessKey: '你的secretKey'
+});
+
+watermark_object = new Buffer('lena.jpg@50p')
+var params = {
+  Bucket: 'myBucket',
+  Key: 'myObject',
+  ImageActions: 'watermark=1&object=' + watermark_object.toString('base64')
+};
+
+var file = require('fs').createWriteStream('./download/watermark1');
+s3.getImage(params).createReadStream().pipe(file);
+```
+
+##### 在图片上打文字水印:
+
+```javascript
+
+// 参考sample/watermark2.js
+
+var s3 = new MSS.S3({
+  accessKeyId: '你的accessKey',
+  secretAccessKey: '你的secretKey'
+});
+
+watermark_text= new Buffer('你好Lena.jpg！')
+var params = {
+  Bucket: 'myBucket',
+  Key: 'myObject',
+  ImageActions: 'watermark=2&type=d3F5LW1pY3JvaGVp&text=' + watermark_text.toString('base64')
+};
+
+var file = require('fs').createWriteStream('./download/watermark2');
+s3.getImage(params).createReadStream().pipe(file);
+```
+
+##### 获取一个预签名的图片url:
+
+```javascript
+
+// 参考sample/get_presign_image.js
+
+var s3 = new MSS.S3({
+  accessKeyId: '你的accessKey',
+  secretAccessKey: '你的secretKey'
+});
+
+// This URL will expire in one minute (600 seconds)
+var params = {
+  Bucket: 'myBucket',
+  Key: 'myObject',
+  ImageActions: '50p'
+  Expires: 600
+};
+
+// 获取缩小50%的图片预签名url用于GET或HEAD
+var url = s3.getSignedUrl('getImage', params);
+console.log("The URL to GET is [%s]", url);
+var url = s3.getSignedUrl('headImage', params);
+console.log("The URL to HEAD is [%s]", url);
+
+console.log();
+
+// 获取打图片水印的图片预签名url用于GET或HEAD
+watermark_object = new Buffer('lena.jpg@50p')
+params['ImageActions'] = 'watermark=1&object=' + watermark_object.toString('base64')
+var url = s3.getSignedUrl('getImage', params);
+console.log("The URL(image watermark) to GET is [%s]", url);
+var url = s3.getSignedUrl('headImage', params);
+console.log("The URL(image watermark) to HEAD is [%s]", url);
+
+console.log();
+
+// 获取打文字水印的图片预签名url用于GET或HEAD
+watermark_text= new Buffer('你好Lena.jpg！')
+params['ImageActions'] = 'watermark=2&type=d3F5LW1pY3JvaGVp&text=' + watermark_text.toString('base64')
+var url = s3.getSignedUrl('getImage', params);
+console.log("The URL(text watermark) to GET is [%s]", url);
+var url = s3.getSignedUrl('headImage', params);
+console.log("The URL(text watermark) to HEAD is [%s]", url);
+```

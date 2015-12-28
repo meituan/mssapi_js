@@ -10,7 +10,7 @@ var s3 = new MSS.S3({
 var params = {
   Bucket: KEY.bucket_name,
   Key: KEY.object_name,
-  ImageActions: "100h"
+  ImageActions: '50p'
 };
 
 var file = require('fs').createWriteStream('./download/image2');
